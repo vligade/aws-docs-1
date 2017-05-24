@@ -1,0 +1,43 @@
+Starting Apache:
+
+The httpd program is run as a "daemon" that executes continuously in the background to handle requests.
+
+How Apache starts:
+------------------
+
+If the Listen, specified in the configuration file is default of 80 (or any other port below 1024), then it is necessary
+to have root privileges in order to start apache, so that it can bind to this privileged port.
+
+Once the server has started and performed a few priliminery steps such as opening its log files, it will launch several child
+processes which do the work of listening for and answering requests from client.
+
+The main httpd process continues to run as the root user. But, the child processess run as a less privileged user.
+
+This is controlled by the selected Multi-Processing Module.
+
+Some examples of Multi-Processing Modules in UNIX:
+
+1) prefork
+2) worker
+3) event
+
+
+Recommended method of invoking the httpd executable is to use the "apachect1" control script.
+
+This script sets certain environment variables that are necessary for the httpd to function correctly under some operating systems.
+and then invokes the httpd binary. 
+
+apachect1 will pass through any command line arguments, so any httpd options may also be included with apachect1.
+
+--------------------------------------------------------------------------------------------------------------------------------
+The first thing that httpd does when it is invoked is to locate and read the configuration file "httpd.conf". The location of this 
+file is set at compile time, but it is possible to specify its location at run time using the -f command line option as in
+
+/usr/local/apache2/bin/apachect1 -f /usr/local/apache2/conf/httpd.conf
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+If all goes well during startup, the server will detach from the terminal and the command prompt will return almost
+immediately. This indicates that the server is up and running. You can then use the web-browser to connect to the server
+and test the page in the "DocumentRoot" directory.
